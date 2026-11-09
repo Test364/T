@@ -422,11 +422,17 @@ $('share').onclick=function(){var data={title:document.title,text:'تم تدشي
 if(AT&&AT>new Date()){
   locked=true;btn.disabled=true;$('timer').classList.add('on');$('hint').textContent='يُفتح التدشين عند حلول الموعد ⏳';
   var pad=function(n){return(n<10?'0':'')+n};
-  (function tick(){var ms=AT-new Date();
-    if(ms<=0){locked=false;btn.disabled=false;$('timer').classList.remove('on');
-      $('hint').innerHTML='حان الموعد! '+HINT;tone(880,.3,'sine',.2);if(tMode==='form')setTimeout(function(){setTitle(false)},50);if(AUTO)launch();return}
+  var done=false;
+  function finish(){if(done)return;done=true;locked=false;btn.disabled=false;$('timer').classList.remove('on');
+    $('hint').innerHTML='حان الموعد! '+HINT;tone(880,.3,'sine',.2);if(tMode==='form')setTimeout(function(){setTitle(false)},50);if(AUTO)launch()}
+  function render(){var ms=AT-new Date();if(ms<=0){clearInterval(iv);finish();return}
     var s=Math.floor(ms/1000);$('td').textContent=pad(Math.floor(s/86400));$('th').textContent=pad(Math.floor(s%86400/3600));
-    $('tm').textContent=pad(Math.floor(s%3600/60));$('ts').textContent=pad(s%60);setTimeout(tick,1000-(ms%1000)+5)})();
+    $('tm').textContent=pad(Math.floor(s%3600/60));$('ts').textContent=pad(s%60)}
+  var iv=setInterval(render,250);
+  render();
+  document.addEventListener('visibilitychange',render);
+  window.addEventListener('focus',render);
+  window.addEventListener('pageshow',render);
 }
 
 /* ===================== البدء ===================== */

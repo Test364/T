@@ -121,7 +121,7 @@ var $=function(id){return document.getElementById(id)};
    ?mute                    بدون صوت                                         */
 var Q=new URLSearchParams(location.search);
 var GO=Q.get('go')||'https://quiztest2.github.io/Quiz/';
-var NAME=Q.get('name'),BY=Q.get('by')||'مدير مدرسة عبدالواحد بن سعد الكليب المغيره';
+var NAME=Q.get('name'),BY=Q.get('by')||'مدير المدرسة عبدالواحد بن سعد الكليب المغيره';
 var AT=new Date(Q.get('at')||'2026-11-10T06:55:00+03:00');if(isNaN(AT))AT=null;
 var AUTO=Q.has('auto'),REDIR=parseInt(Q.get('redirect'),10)||0;
 var RM=false;/* الحركات دايماً مفعّلة حتى لو جهاز الزائر مطفي فيه تأثيرات الحركة */
